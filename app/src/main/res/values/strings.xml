@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Contact List</string>
+    <string name="btn_home">Home</string>
+    <string name="btn_fav">Favorites</string>
 </resources>
