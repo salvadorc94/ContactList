@@ -2,4 +2,10 @@
     <string name="app_name">Contact List</string>
     <string name="btn_home">Home</string>
     <string name="btn_fav">Favorites</string>
+    <string name="text_view_nombre">Nombre</string>
+    <string name="text_view_number">Numero</string>
+    <string name="txt_name">Name</string>
+    <string name="txt_number">Number</string>
+    <string name="txt_correo">Correo</string>
+    <string name="txt_direc">Direccion</string>
 </resources>
