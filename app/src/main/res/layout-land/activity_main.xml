@@ -16,6 +16,7 @@
 
         <Button
             android:id="@+id/btn_home"
+            android:onClick="homebtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,6 +26,7 @@
 
         <Button
             android:id="@+id/btn_fav"
+            android:onClick="favbtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
