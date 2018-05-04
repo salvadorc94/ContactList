@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
     public void homebtn(View v){
         adapter.setFalse();
         home.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        fav.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        fav.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         adapter = new ContactAdapter(contacts,v.getContext());
         rv.setAdapter(adapter);
     }
     public void favbtn(View v){
         adapter.setTrue();
-        home.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        home.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         fav.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         adapter = new ContactAdapter(favcontacts,v.getContext());
         rv.setAdapter(adapter);
