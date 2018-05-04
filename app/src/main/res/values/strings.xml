@@ -8,4 +8,6 @@
     <string name="txt_number">Number</string>
     <string name="txt_correo">Correo</string>
     <string name="txt_direc">Direccion</string>
+    <string name="btn_empty_star">☆</string>
+    <string name="btn_full_star">★</string>
 </resources>

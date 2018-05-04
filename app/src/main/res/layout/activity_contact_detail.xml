@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".contact_detail">
+    tools:context=".ContactDetail">
 
     <ImageView
         android:id="@+id/image_view_contact"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/contact"
         />
     <TextView
         android:id="@+id/text_view_name"
@@ -60,21 +60,24 @@
 
         <ImageView
             android:id="@+id/image_view_llamar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:paddingRight="24dp"
             android:paddingLeft="24dp"
             android:paddingEnd="24dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/call"
             />
+
         <ImageView
             android:id="@+id/image_view_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:paddingRight="24dp"
             android:paddingLeft="24dp"
             android:paddingEnd="24dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/share"
             />
 
 
