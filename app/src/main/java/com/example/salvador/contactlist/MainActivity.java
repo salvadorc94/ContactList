@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void homebtn(View v){
         adapter.setFalse();
-        home.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-        fav.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        home.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        fav.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         adapter = new ContactAdapter(contacts,v.getContext());
         rv.setAdapter(adapter);
     }
