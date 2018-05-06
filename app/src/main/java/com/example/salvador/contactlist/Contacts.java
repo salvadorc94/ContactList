@@ -1,6 +1,9 @@
 package com.example.salvador.contactlist;
 
-public class Contacts {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Contacts implements Parcelable{
 
 
     //Datos del contacto.
@@ -19,6 +22,28 @@ public class Contacts {
         this.address = address;
         this.favorite = favorite;
     }
+
+    public Contacts(){}
+
+    protected Contacts(Parcel in) {
+        name = in.readString();
+        number = in.readString();
+        email = in.readString();
+        address = in.readString();
+        favorite = in.readByte() != 0;
+    }
+
+    public static final Creator<Contacts> CREATOR = new Creator<Contacts>() {
+        @Override
+        public Contacts createFromParcel(Parcel in) {
+            return new Contacts(in);
+        }
+
+        @Override
+        public Contacts[] newArray(int size) {
+            return new Contacts[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -58,5 +83,19 @@ public class Contacts {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(number);
+        dest.writeString(email);
+        dest.writeString(address);
+        dest.writeByte((byte) (favorite ? 1 : 0));
     }
 }

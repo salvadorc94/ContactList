@@ -1,10 +1,20 @@
 package com.example.salvador.contactlist;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactsViewHolder> {
+public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactsViewHolder> {
 
     //Arraylist de la clase contactos TODO: ARRAY SOLO PARA PRUEBAS.
     private ArrayList<Contacts> contactos;
-
+    private boolean landscape;
     private static boolean fav = false;
     private Context context;
 
@@ -42,11 +52,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Contacts
             number = itemView.findViewById(R.id.text_view_number);
             favorite = itemView.findViewById(R.id.btn_fav);
 
+
         }
 
     }
 
-    public ContactAdapter(ArrayList<Contacts> contactos, Context context){this.contactos=contactos; this.context = context;}
+    public ContactAdapter(ArrayList<Contacts> contactos, Context context, boolean landscape){this.contactos=contactos; this.context = context; this.landscape = landscape;}
 
 
     @NonNull
@@ -56,7 +67,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Contacts
         return (new ContactsViewHolder(v));
     }
 
-    //TODO: REVISAR ADVERTENCIA EN FINAL INT POSITION
     @Override
     public void onBindViewHolder(@NonNull final ContactsViewHolder holder, final int position) {
         //aquí se agregan los listeners a los botones.
@@ -86,6 +96,17 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Contacts
             }
         });
 
+        //Listener del cardview para saber los details.
+        holder.cardview.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onClickCard(contactos.get(position),landscape);
+            }
+        });
+
+
+
+
 
     }
 
@@ -108,6 +129,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Contacts
         contactos.get(position).setFavorite(!contactos.get(position).isFavorite());
         return contactos.get(position).isFavorite();
     }
+
+    public abstract void onClickCard(Contacts contacts, boolean landscape);
 
 
 }

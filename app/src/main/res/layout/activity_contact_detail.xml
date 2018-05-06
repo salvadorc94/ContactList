@@ -60,6 +60,9 @@
 
         <ImageView
             android:id="@+id/image_view_llamar"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="llamar"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -71,6 +74,9 @@
 
         <ImageView
             android:id="@+id/image_view_share"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="share"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
