@@ -32,22 +32,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/txt_number"
         />
-    <TextView
-        android:id="@+id/text_view_correo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/txt_correo"
-        />
-    <TextView
-        android:id="@+id/text_view_direccion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/txt_direc"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"

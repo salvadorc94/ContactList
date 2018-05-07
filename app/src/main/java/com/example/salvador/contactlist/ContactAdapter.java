@@ -71,7 +71,7 @@ public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter
     public void onBindViewHolder(@NonNull final ContactsViewHolder holder, final int position) {
         //aquí se agregan los listeners a los botones.
         holder.name.setText(contactos.get(position).getName());
-        holder.number.setText(contactos.get(position).getName());
+        holder.number.setText(contactos.get(position).getNumber());
 
 
         //Conocer si es favorito y así modificar el botón.

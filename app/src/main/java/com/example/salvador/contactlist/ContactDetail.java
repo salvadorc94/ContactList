@@ -18,34 +18,25 @@ public class ContactDetail extends AppCompatActivity {
 
     TextView nombre;
     TextView telefono;
-    TextView correo;
-    TextView direccion;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_detail);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
-
-
-
         nombre = findViewById(R.id.text_view_name);
         telefono = findViewById(R.id.text_view_number);
-        correo = findViewById(R.id.text_view_correo);
-        direccion = findViewById(R.id.text_view_direccion);
 
         Contacts contacts = (Contacts) getIntent().getExtras().getParcelable("Contacto");
 
         nombre.setText(contacts.getName());
         telefono.setText(contacts.getNumber());
-        correo.setText(contacts.getEmail());
-        direccion.setText(contacts.getAddress());
 
     }
 
 
     public void llamar(View view){
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
             return;
         }
         //asdasdasdasdasdasdasdsad
@@ -60,11 +51,10 @@ public class ContactDetail extends AppCompatActivity {
     public void share(View view){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"Nombre: "+nombre.getText().toString()+"\nTelefono: "+telefono.getText().toString()
-        +"\nCorreo: "+correo.getText().toString()+"\nDireccion: "+direccion.getText().toString());
+        intent.putExtra(Intent.EXTRA_TEXT,"Nombre: "+nombre.getText().toString()+"\nTelefono: "+telefono.getText().toString());
 
         if(intent.resolveActivity(getPackageManager()) != null){
-            startActivity(intent);
+            startActivity(Intent.createChooser(intent,String.valueOf(R.string.share)));
         }
     }
 
