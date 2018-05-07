@@ -147,11 +147,23 @@ public class MainActivity extends AppCompatActivity {
 
     //Recuperar los contactos.
     public void retrieveContact(){
+            String help = "";
+
             Cursor contactos = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
             while (contactos.moveToNext()) {
                 String name = contactos.getString(contactos.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String number = contactos.getString(contactos.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                contacts.add(new Contacts(name, number, false));
+
+
+
+                if(!(help.equals(name))){
+                    contacts.add(new Contacts(name, number, false));
+                }
+
+                help = name;
+
+
+                //contacts.add(new Contacts(name, number, false));
             }
             contactos.close();
     }
