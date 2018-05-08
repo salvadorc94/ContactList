@@ -2,6 +2,7 @@ package com.example.salvador.contactlist;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
@@ -10,8 +11,11 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,10 +45,15 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager manager;
     EditText search;
 
+    EditText addname;
+    EditText addnumber;
+
+    Dialog dialog;
+
+
     Button home;
     Button fav;
 
-    //Array para mientras
     ArrayList<Contacts> contacts,favcontacts;
 
 
@@ -96,7 +105,26 @@ public class MainActivity extends AppCompatActivity {
             rv.setAdapter(adapter);
         }
 
+        //dialog
+        dialog= new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.add_contact);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
+        //add contact objects
+        addname = (EditText) dialog.findViewById(R.id.edit_text_name);
+        addnumber = (EditText) dialog.findViewById(R.id.edit_text_number);
+
+        //Listener del boton flotante
+        FloatingActionButton boton_flotante = (FloatingActionButton) findViewById(R.id.fab);
+        boton_flotante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+            }
+        });
+
+
+        //Barra de Búsqueda
         search = (EditText) findViewById(R.id.buscar);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -133,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.filterList(filteredList);
     }
+
 
     //Metodos onClick del menu
 
@@ -253,6 +282,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    public void boton_add(View view) {
+        Contacts addedcontact = new Contacts();
+
+        addedcontact.setName(addname.getText().toString());
+        addedcontact.setNumber(addnumber.getText().toString());
+        addedcontact.setFavorite(false);
+
+        contacts.add(0,addedcontact);
+
+        //Notificar cambios si esta en la ventana normal
+        if(!adapter.isOnFavS()){
+            adapter.notifyItemInserted(0);
+            rv.scrollToPosition(0);
+        }
+        dialog.dismiss();
+        addname.setText("");
+        addnumber.setText("");
+    }
+
 
 
     private void requestStoragePermission(){

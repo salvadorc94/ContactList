@@ -51,7 +51,7 @@ public class ContactDetail extends AppCompatActivity {
     public void share(View view){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,"Nombre: "+nombre.getText().toString()+"\nTelefono: "+telefono.getText().toString());
+        intent.putExtra(Intent.EXTRA_TEXT,R.string.txt_add_nombre+" "+nombre.getText().toString()+"\n"+R.string.txt_add_number+" "+telefono.getText().toString());
 
         if(intent.resolveActivity(getPackageManager()) != null){
             startActivity(Intent.createChooser(intent,String.valueOf(R.string.share)));

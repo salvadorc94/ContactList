@@ -13,4 +13,9 @@
     <string name="permiso_mensaje">This permission is needed to read your contacts</string>
     <string name="cancel">Cancel</string>
     <string name="edit_text_search">Search</string>
+    <string name="txt_add_nombre">Name:</string>
+    <string name="txt_add_number">Number:</string>
+    <string name="edit_text_add_name">Enter contact name</string>
+    <string name="edit_text_add_number">Enter contact number</string>
+    <string name="btn_add">Add</string>
 </resources>
