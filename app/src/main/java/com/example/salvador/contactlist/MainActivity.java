@@ -37,12 +37,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    //Saber si esta en landscape o normal
-    public boolean landscape;
-
     RecyclerView rv;
     ContactAdapter adapter;
     LinearLayoutManager manager;
+
     EditText search;
 
     EditText addname;
@@ -84,14 +82,6 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(manager);
 
 
-        if(findViewById(R.id.contact_detail) != null){
-            //Si no es null es porque esta en landscape.
-            landscape = true;
-        }else{
-            landscape = false;
-        }
-
-
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
             requestStoragePermission();
         }else{
@@ -104,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             };
             rv.setAdapter(adapter);
         }
+
 
         //dialog
         dialog= new Dialog(MainActivity.this);

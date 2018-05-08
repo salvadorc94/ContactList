@@ -63,7 +63,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp" />
 
-        <android.support.v4.widget.NestedScrollView
+        <fragment
             android:id="@+id/contact_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
