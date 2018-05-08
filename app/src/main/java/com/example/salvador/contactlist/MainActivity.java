@@ -96,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
             requestStoragePermission();
         }else{
             retrieveContact();
-            adapter = new ContactAdapter(contacts, this, landscape) {
+            adapter = new ContactAdapter(contacts, this) {
                 @Override
-                public void onClickCard(Contacts contacts, boolean landscape) {
-                    intents(contacts,landscape);
+                public void onClickCard(Contacts contacts) {
+                    intents(contacts);
                 }
             };
             rv.setAdapter(adapter);
@@ -169,10 +169,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.setFalse();
         home.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         fav.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        adapter = new ContactAdapter(contacts, v.getContext(), landscape) {
+        adapter = new ContactAdapter(contacts, v.getContext()) {
             @Override
-            public void onClickCard(Contacts contacts, boolean landscape) {
-                intents(contacts,landscape);
+            public void onClickCard(Contacts contacts) {
+                intents(contacts);
 
             }
         };
@@ -195,10 +195,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.setTrue();
         home.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         fav.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        adapter = new ContactAdapter(favcontacts, v.getContext(), landscape) {
+        adapter = new ContactAdapter(favcontacts, v.getContext()) {
             @Override
-            public void onClickCard(Contacts contacts, boolean landscape) {
-                intents(contacts,landscape);
+            public void onClickCard(Contacts contacts) {
+                intents(contacts);
 
             }
         };
@@ -233,10 +233,10 @@ public class MainActivity extends AppCompatActivity {
         favcontacts.remove(counter);
 
         if (adapter.isOnFavS()){
-            adapter = new ContactAdapter(favcontacts, this, landscape) {
+            adapter = new ContactAdapter(favcontacts, this) {
                 @Override
-                public void onClickCard(Contacts contacts, boolean landscape) {
-                    intents(contacts,landscape);
+                public void onClickCard(Contacts contacts) {
+                    intents(contacts);
                 }
             };
             rv.setAdapter(adapter);
@@ -269,17 +269,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     //AL DAR CLICK EN LOS CARDVIEW
-    public void intents(Contacts contacts, boolean landscape){
-        if(landscape){
-            //fragment manager
+    public void intents(Contacts contacts){
 
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            //TODO: FRAGMENT MANAGER
+            Intent intent = new Intent(getApplicationContext(),ContactDetail.class);
+            intent.putExtra("Contacto",contacts);
+            startActivity(intent);
 
         }else{
-            //Intent
             Intent intent = new Intent(getApplicationContext(),ContactDetail.class);
             intent.putExtra("Contacto",contacts);
             startActivity(intent);
         }
+
 
     }
 
@@ -287,18 +290,21 @@ public class MainActivity extends AppCompatActivity {
     public void boton_add(View view) {
         Contacts addedcontact = new Contacts();
 
-        addedcontact.setName(addname.getText().toString());
-        addedcontact.setNumber(addnumber.getText().toString());
-        addedcontact.setFavorite(false);
+        if(!(addname.getText().toString().isEmpty() && addnumber.getText().toString().isEmpty())){
+            addedcontact.setName(addname.getText().toString());
+            addedcontact.setNumber(addnumber.getText().toString());
+            addedcontact.setFavorite(false);
 
-        contacts.add(0,addedcontact);
+            contacts.add(0,addedcontact);
 
-        //Notificar cambios si esta en la ventana normal
-        if(!adapter.isOnFavS()){
-            adapter.notifyItemInserted(0);
-            rv.scrollToPosition(0);
+            //Notificar cambios si esta en la ventana normal
+            if(!adapter.isOnFavS()){
+                adapter.notifyItemInserted(0);
+                rv.scrollToPosition(0);
+            }
+            dialog.dismiss();
+
         }
-        dialog.dismiss();
         addname.setText("");
         addnumber.setText("");
     }
@@ -326,10 +332,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 23)  {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 retrieveContact();
-                adapter = new ContactAdapter(contacts, this, landscape) {
+                adapter = new ContactAdapter(contacts, this) {
                     @Override
-                    public void onClickCard(Contacts contacts, boolean landscape) {
-                        intents(contacts,landscape);
+                    public void onClickCard(Contacts contacts) {
+                        intents(contacts);
                     }
                 };
                 rv.setAdapter(adapter);

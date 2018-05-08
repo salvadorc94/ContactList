@@ -26,9 +26,8 @@ import java.util.ArrayList;
 
 public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactsViewHolder> {
 
-    //Arraylist de la clase contactos TODO: ARRAY SOLO PARA PRUEBAS.
+    //Arraylist de la clase contactos
     private ArrayList<Contacts> contactos;
-    private boolean landscape;
     private static boolean fav = false;
     private Context context;
 
@@ -58,7 +57,7 @@ public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter
 
     }
 
-    public ContactAdapter(ArrayList<Contacts> contactos, Context context, boolean landscape){this.contactos=contactos; this.context = context; this.landscape = landscape;}
+    public ContactAdapter(ArrayList<Contacts> contactos, Context context){this.contactos=contactos; this.context = context;}
 
 
     @NonNull
@@ -101,7 +100,7 @@ public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter
         holder.cardview.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                onClickCard(contactos.get(position),landscape);
+                onClickCard(contactos.get(position));
             }
         });
 
@@ -137,7 +136,7 @@ public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter
         return contactos.get(position).isFavorite();
     }
 
-    public abstract void onClickCard(Contacts contacts, boolean landscape);
+    public abstract void onClickCard(Contacts contacts);
 
 
 }
