@@ -35,11 +35,22 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/buscar"
+        android:layout_below="@id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:hint="@string/edit_text_search"
+        android:inputType="text"
+        />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/contact_list"
             android:layout_margin="8dp"
-            android:layout_below="@id/menu"
+            android:layout_below="@id/buscar"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

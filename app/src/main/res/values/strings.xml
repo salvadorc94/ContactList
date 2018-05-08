@@ -12,4 +12,5 @@
     <string name="permiso_necesario">Permission needed</string>
     <string name="permiso_mensaje">This permission is needed to read your contacts</string>
     <string name="cancel">Cancel</string>
+    <string name="edit_text_search">Search</string>
 </resources>

@@ -18,9 +18,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
     ContactAdapter adapter;
     LinearLayoutManager manager;
+    EditText search;
 
     Button home;
     Button fav;
@@ -46,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Evitar que la app enfoque el EditText al inicio
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         //Iniciar arrays
         contacts = new ArrayList<>();
@@ -86,6 +95,43 @@ public class MainActivity extends AppCompatActivity {
             };
             rv.setAdapter(adapter);
         }
+
+
+        search = (EditText) findViewById(R.id.buscar);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                searchedForContacts(s.toString());
+            }
+        });
+
+        rv.setAdapter(adapter);
+
+    }
+
+    //Metodos para el search bar
+    private void searchedForContacts(String text){
+        ArrayList<Contacts> filteredList = new ArrayList<>();
+        for(Contacts item : contacts){
+            if(item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
+    }
+    private void searchedForFavs(String text){
+        ArrayList<Contacts> filteredList = new ArrayList<>();
+        for(Contacts item : favcontacts){
+            if(item.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+
+        adapter.filterList(filteredList);
     }
 
     //Metodos onClick del menu
@@ -102,6 +148,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         rv.setAdapter(adapter);
+        EditText filter = (EditText) findViewById(R.id.buscar);
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchedForContacts(editable.toString());
+            }
+        });
+
+
     }
     public void favbtn(View v){
         adapter.setTrue();
@@ -115,6 +174,17 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         rv.setAdapter(adapter);
+        EditText filter = (EditText) findViewById(R.id.buscar);
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchedForFavs(editable.toString());
+            }
+        });
     }
 
     public void addFavourite(Contacts contacts) {
@@ -186,15 +256,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void requestStoragePermission(){
-        /*
-        while(true){
-            if(ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_CONTACTS},23);
-            }else{
-                break;
-            }
-
-        }*/
            new AlertDialog.Builder(this)
                     .setTitle(R.string.permiso_necesario)
                     .setMessage(R.string.permiso_mensaje)

@@ -110,6 +110,12 @@ public abstract class ContactAdapter extends RecyclerView.Adapter<ContactAdapter
 
     }
 
+    public void filterList(ArrayList<Contacts> filteredList) {
+        contactos = filteredList;
+        notifyDataSetChanged();
+    }
+
+
     @Override
     public int getItemCount() {
         return contactos.size();
